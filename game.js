@@ -1,56 +1,151 @@
 c = document.getElementById("pane");
 ctx = c.getContext("2d");
-w = 50;
-x = 0;
+
+vy = .25;
+vx = 0;
+fps = 60;
+targetAmount = 50;
+targetSize = 50;
+targetSpeed = 0.5; // Base speed in case the random number is really slow.
+playerAmount = 5;
+playerSize = 100;
+
+var points;
 var mouseX;
 var mouseY;
 var refreshIntervalId;
+
 mouseDetect();
 
+// MAIN FUNCTIONS //
 
 start = function () {
 	clearInterval(refreshIntervalId);
-	x = 0;
-	y = 0;
-	vy = .25;
-	vx = .25;
-	
-	refreshIntervalId = setInterval(animate, 10);
+	initialize();
+	refreshIntervalId = setInterval(animate, 1000/fps);
 }
 
 animate = function() {
-    if (x + w < c.width && y + w < c.height) {
-		x += vx;
-		y += vy;
+	doLogic();
+	doDrawing();
+	console.log(points);
+}
+
+// LOGIC //
+
+function initialize() {
+
+	points = 0;
+
+	targetArray = new Array();
+	for (var i = 0; i < targetAmount; i++) {
+
+		targetArray[i] = new Object();
+		targetArray[i].x = Math.floor(Math.random() * (c.width));
+		targetArray[i].y = (0 - i * 10) - targetSize; // Making the targets start at different heights.
+		targetArray[i].vy = Math.random() + targetSpeed; // Floor of random number.
+		targetArray[i].isAlive = true;
+
+		if (targetArray[i].x > targetSize) {
+			targetArray[i].x -= targetSize;
+		}
+
 	}
+
+	playerArray = new Array();
+	for (var i = 0; i < playerAmount; i++) {
+
+		playerArray[i] = new Object();
+		playerArray[i].x = Math.floor(Math.random() * (c.width - playerSize));
+		playerArray[i].y = c.height - playerSize;
+
+	}
+
+}
+
+function doLogic() {
+	applyPhysics();
+}
+
+function applyPhysics() {
+
+	for (var i = 0; i < playerArray.length; i++) {
+		
+		if (playerArray[i].x + playerSize < c.width
+		 && playerArray[i].y + playerSize < c.height
+		 && playerArray[i].x > 0
+		 && playerArray[i].y > 0) {
+			playerArray[i].x += vx;
+			playerArray[i].y += vy;
+
+		}
+
+	}
+
+	for (var i = 0; i < targetArray.length; i++) {
+
+		if(targetArray[i].x < c.width
+		&& targetArray[i].y < c.height + 5) {
+			targetArray[i].y += targetArray[i].vy;
+		}
+
+		for (var i2 = 0; i2 < playerArray.length; i2++) {
+				
+			if (intersects(targetArray[i].x,
+						  targetArray[i].y,
+						  targetSize,
+						  targetSize,
+						  playerArray[i2].x,
+						  playerArray[i2].y,
+						  playerSize,
+						  playerSize) && targetArray[i].isAlive) {
+				targetArray[i].isAlive = false;
+				points++;
+			} 
+
+
+		}
+
+	}
+
+}
+
+function intersects(x, y, w, h, x2, y2, w2, h2) {
+  	return  (x <= x2 + w2 &&
+     	     x2 <= x + w &&
+       	     y <= y2 + h2 &&
+       	     y2 <= y + h)
+}
+
+// RENDERING //
+
+function doDrawing() {
 	ctx.clearRect(0, 0, c.width, c.height);
-	drawPlayer();
 	drawTarget();
-	onPlayerSkin();
+	drawPlayer();
 }
 
-drawPlayer = function() {
-	ctx.strokeRect(x, y, w, w);
+function drawTarget() {
+	for (var i = 0; i < targetArray.length; i++) {
+		ctx.strokeRect(targetArray[i].x, targetArray[i].y, targetSize, targetSize);
+	}
 }
 
-drawTarget = function() {
-	ctx.strokeRect(c.width-w, c.height-w, w, w);
+function drawPlayer() {
+	for (var i = 0; i < playerArray.length; i++) {
+		ctx.strokeRect(playerArray[i].x, playerArray[i].y, playerSize, playerSize);
+	}
 }
 
-function addPoints(points) {
+// HELPER FUNCTIONS //
+
+function setPoints(points) {
     localStorage.setItem('points', points);
 }
 
 function getPoints() {
     return localStorage.getItem('points');
 }
-
-
-$('canvas').click( function() {
-	if (onPlayer()) {
-		vy += 0.5;
-	}
-});
 
 function onPlayer() {
     if ((mouseX >= x && mouseX <= x + w) 
@@ -61,20 +156,10 @@ function onPlayer() {
 	}
 }
 
-function onPlayerSkin() {
-	if (onPlayer()) {
-	  if (c.style.cursor != 'pointer') c.style.cursor = 'pointer';
-	} else {
-	  if (c.style.cursor != 'auto') c.style.cursor = 'auto';
-	}
-}
-
-
-
-
-
-
-
-
-
-
+// If on click is ever needed in game then this is the way to do it.
+// JQUERY CALLS //
+//$('canvas').click(function() {
+//	if (onPlayer()) {
+//		vy += 0.5;
+//	}
+//});
