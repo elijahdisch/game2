@@ -1,6 +1,6 @@
 c = document.getElementById("pane");
 
-function mouseDetect() {
+function startMouseListener() {
 	c.addEventListener("mousemove", function() {
 		var x = new Number();
 		var y = new Number();
@@ -25,6 +25,10 @@ function mouseDetect() {
 		mouseY = y;
 
 	}, false);
+}
+
+function startKeyListener() {
+	c.addEventListener("keydown", function() {console.log("asdf");}, false);
 }
 
 

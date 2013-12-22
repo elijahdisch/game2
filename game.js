@@ -1,21 +1,24 @@
 c = document.getElementById("pane");
 ctx = c.getContext("2d");
 
-vy = .25;
-vx = 0;
 fps = 60;
+maxIndex = 10;
 targetAmount = 50;
 targetSize = 50;
 targetSpeed = 0.5; // Base speed in case the random number is really slow.
-playerAmount = 5;
+targetIndex = 1;
+playerAmount = 2;
 playerSize = 100;
+playerIndex = 0;
+points = 0;
+mouseX = 0;
+mouseY = 0;
+localPoints = 0;
 
-var points;
-var mouseX;
-var mouseY;
 var refreshIntervalId;
 
-mouseDetect();
+startKeyListener();
+startMouseListener();
 
 // MAIN FUNCTIONS //
 
@@ -28,21 +31,22 @@ start = function () {
 animate = function() {
 	doLogic();
 	doDrawing();
-	console.log(points);
 }
 
 // LOGIC //
 
 function initialize() {
 
-	points = 0;
+	spritemap = new Array();
+	spritemap[targetIndex] = loadImage("sprites/sprite_0.png");
+	spritemap[playerIndex] = loadImage("sprites/sprite_1.png");
 
 	targetArray = new Array();
 	for (var i = 0; i < targetAmount; i++) {
 
 		targetArray[i] = new Object();
 		targetArray[i].x = Math.floor(Math.random() * (c.width));
-		targetArray[i].y = (0 - i * 10) - targetSize; // Making the targets start at different heights.
+		targetArray[i].y = (0 - i * 50) - targetSize; // Making the targets start at different heights.
 		targetArray[i].vy = Math.random() + targetSpeed; // Floor of random number.
 		targetArray[i].isAlive = true;
 
@@ -58,13 +62,25 @@ function initialize() {
 		playerArray[i] = new Object();
 		playerArray[i].x = Math.floor(Math.random() * (c.width - playerSize));
 		playerArray[i].y = c.height - playerSize;
+		playerArray[i].points = 0;
 
 	}
 
 }
 
+function loadImage(name) {
+
+	var image = new Image();
+	image.src = name;
+	return image;
+
+}
+
 function doLogic() {
 	applyPhysics();
+
+	document.getElementById("points").innerHTML = localPoints;
+
 }
 
 function applyPhysics() {
@@ -100,7 +116,9 @@ function applyPhysics() {
 						  playerSize,
 						  playerSize) && targetArray[i].isAlive) {
 				targetArray[i].isAlive = false;
-				points++;
+				playerArray[i2].points++;
+				localPoints++;
+
 			} 
 
 
@@ -127,13 +145,15 @@ function doDrawing() {
 
 function drawTarget() {
 	for (var i = 0; i < targetArray.length; i++) {
-		ctx.strokeRect(targetArray[i].x, targetArray[i].y, targetSize, targetSize);
+		if (targetArray[i].isAlive) ctx.drawImage(spritemap[targetIndex], targetArray[i].x, targetArray[i].y);
 	}
 }
 
 function drawPlayer() {
 	for (var i = 0; i < playerArray.length; i++) {
-		ctx.strokeRect(playerArray[i].x, playerArray[i].y, playerSize, playerSize);
+		ctx.drawImage(spritemap[playerIndex], playerArray[i].x, playerArray[i].y);
+		ctx.font = "30px Arial";
+		ctx.strokeText(playerArray[i].points, playerArray[i].x + (playerSize / 2) - 10, playerArray[i].y + (playerSize / 2) - 10)
 	}
 }
 
