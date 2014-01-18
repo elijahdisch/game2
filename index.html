@@ -1,8 +1,64 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>PooCatcher</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+</head>
+
 <body>
+<div class="wrapper">
 
-<script src="script.js"></script>
+    <div class="startForm">
 
+        <form id="start">
+            <label>Name</label>
+            <input type="text" id="input-name" placeholder="Enter your name"></input>
+            <input type="submit" value="Start">
+        </form>
+
+
+    </div>
+
+	<div class="icon">options</div>
+    <div class="controls">
+		
+		<div class="controls-block">
+		Timer: <span class="timer">0</span><br>
+		Points: <span id="points">0</span>
+        </div>
+	
+		<div class="controls-block">
+            Your High Score: <span class="yourHighScore"></span><br>
+            <button class="saveHighScore">Save High Score</button>
+        </div>
+
+        <div class="controls-block">
+            High scores<br>
+            <button id="getHighScores" type="button">Get High Scores</button>
+            <div id="scores"></div>
+        </div>
+
+        <button class="addNewPlayer">Upgrade Toilet</button>
+
+        <div class="orientation"></div>
+
+    </div>
+</div>
+
+	<script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.validate.js" type="text/javascript"></script>
+    <script src="js/fastkey.jquery.js"></script>
+ 	<script src="js/game.js"></script>
+ 	<script src="js/script.js"></script>
+    <script src="js/parse-1.2.15.min.js"></script>
+    <script src="js/ui.js"></script>
+ 	<script src="js/parse.js"></script>
 </body>
 </html>
