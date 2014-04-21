@@ -1,8 +1,65 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Poo Catcher</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+</head>
+
 <body>
+<div class="wrapper">
 
-<script src="script.js"></script>
+    <div class="startForm">
 
+        <a href="#" class="pause"><img src="images/pause.png"></a>
+
+        <form class="start">
+            <input type="image" src="images/play.png">
+            <input type="text" id="input-name" placeholder="Name"></input>
+        </form>
+
+    </div>
+
+	<div class="icon">options</div>
+	
+	<div class="points-timer">
+		Timer: <span class="timer">0</span><br>
+		Points: <span id="points">0</span>
+    </div>
+
+    <div class="controls">
+	
+		<div class="controls-block">
+            Your High Score: <span class="yourHighScore"></span><br>
+            <button class="saveHighScore">Save High Score</button>
+        </div>
+
+        <div class="controls-block">
+            High Scores<br>
+            <button id="getHighScores" type="button">Get High Scores</button>
+            <div id="scores"></div>
+        </div>
+
+        <button class="addNewPlayer">Upgrade Toilet</button>
+
+        <div class="orientation"></div>
+
+    </div>
+
+    <div class="poosMissed"></div>
+
+</div>
+
+    <script src="dist/vendor.min.js" type="text/javascript"></script>
+	<script src="js/init.js"></script>
+	<script src="dist/game2.min.js"></script>
+ 	<script src="js/parse.js"></script>
+    
 </body>
 </html>

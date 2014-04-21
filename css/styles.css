@@ -1,0 +1,157 @@
+/* line 1, ../scss/_reset.scss */
+html {
+  height: 100%;
+}
+
+/* line 5, ../scss/_reset.scss */
+body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0px;
+}
+
+/* line 11, ../scss/_reset.scss */
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
+/* line 1, ../scss/_reset.scss */
+html {
+  height: 100%;
+}
+
+/* line 5, ../scss/_reset.scss */
+body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0px;
+}
+
+/* line 11, ../scss/_reset.scss */
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
+/* line 1, ../scss/_skins.scss */
+.target {
+  content: '';
+  background: url("../images/poo1.png") no-repeat;
+  background-size: 100%;
+  width: 0;
+  height: 0;
+  padding: 2.5%;
+}
+
+/* line 10, ../scss/_skins.scss */
+.player {
+  content: '';
+  background: url("../images/toilet1.png") no-repeat;
+  background-size: 100%;
+  width: 0;
+  height: 0;
+  padding: 2.5%;
+}
+
+/* line 1, ../scss/modules/_controls.scss */
+.icon {
+  background: black;
+  color: white;
+  padding: 5px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  float: right;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* line 14, ../scss/modules/_controls.scss */
+.points-timer {
+  float: right;
+  margin-top: 30px;
+  padding-right: .2em;
+}
+
+/* line 20, ../scss/modules/_controls.scss */
+.controls {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  color: white;
+  background: grey;
+}
+
+/* line 31, ../scss/modules/_controls.scss */
+.controls.active {
+  display: block;
+}
+
+/* line 35, ../scss/modules/_controls.scss */
+.controls-block {
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* line 43, ../scss/modules/_controls.scss */
+.pause {
+  float: left;
+}
+/* line 45, ../scss/modules/_controls.scss */
+.pause img {
+  height: 4%;
+}
+
+/* line 50, ../scss/modules/_controls.scss */
+.start {
+  position: relative;
+  float: left;
+}
+/* line 53, ../scss/modules/_controls.scss */
+.start input[type=image] {
+  height: 4%;
+}
+
+/* line 58, ../scss/modules/_controls.scss */
+#input-name {
+  position: absolute;
+  top: 0px;
+  left: 120px;
+}
+
+/* line 1, ../scss/modules/_game.scss */
+div.selected {
+  cursor: pointer;
+}
+
+/* line 5, ../scss/modules/_game.scss */
+.target, .player {
+  position: absolute;
+}
+
+/* line 9, ../scss/modules/_game.scss */
+.player.selected {
+  outline: dashed 4px orange;
+}
+
+/* line 13, ../scss/modules/_game.scss */
+.player {
+  bottom: 0px;
+}
+
+/* line 1, ../scss/modules/_poosMissed.scss */
+.poosMissed {
+  width: 2%;
+  background: brown;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+}
